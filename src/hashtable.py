@@ -52,14 +52,19 @@ class HashTable:
         Fill this in.
         '''
         index = self._hash_mod(key)
+        node = None
+        current_node = self.storage[index]
 
-        if self.storage[index] is not None:
-            print(f"WARNING: Collision has occured at {index}")
+        while current_node and current_node.key != key:
+            node = current_node
+            current_node = node.next
 
+        if current_node == None:
+            prev = self.storage[index]
+            self.storage[index] = LinkedPair(key, value)
+            self.storage[index].next = prev
         else:
-            self.storage[index] = (key, value)
-
-        return
+            current_node.value = value
 
 
 
