@@ -7,6 +7,10 @@ class LinkedPair:
         self.value = value
         self.next = None
 
+    def __repr__(self):
+        return(f"{self.value}")
+
+
 class HashTable:
     '''
     A hash table that with `capacity` buckets
@@ -54,13 +58,18 @@ class HashTable:
         index = self._hash_mod(key)
 
         if self.storage[index] is not None:
-            print(f"WARNING: Collision has occured at {index}")
+            current_pair  = self.storage[index]
 
+            while current_pair.next is not None:
+                if current_pair.key != key:
+                    current_pair = current_pair.next
+            if current_pair.key == key:
+                current_pair.value = value
+            else:
+                current_pair.next = LinkedPair(key, value)
+            return
         else:
-            self.storage[index] = (key, value)
-
-        return
-
+            self.storage[index] = LinkedPair(key, value)
 
 
     def remove(self, key):
@@ -124,7 +133,7 @@ class HashTable:
 
 
 if __name__ == "__main__":
-    ht1 = HashTable(2)
+    ht1 = HashTable(3)
 
     ht1.insert('key1', 'hello')
     ht1.insert('unicorn', 'goodbye')
