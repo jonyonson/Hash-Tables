@@ -77,17 +77,36 @@ class HashTable:
         Fill this in.
         '''
         index = self._hash_mod(key)
+        node = None
+        current_node = self.storage[index]
 
-        if self.storage[index] is not None:
-            if self.storage[index][0] == key:
-                self.storage[index] = None
-            else:
-                print(f"WARNING: Collision has occured at {index}")
+        while current_node and current_node.key != key:
+            node = current_node
+            current_node = node.next
 
+        if current_node == None:
+            print(f"Warning: key {key} not fgit ound")
+            # prev = self.storage[index]
+            # self.storage[index] = LinkedPair(key, value)
+            # self.storage[index].next = prev
         else:
-            print(f"Warning: key {key} not found")
+            if node is None:
+                self.storage[index] = current_node.next
+            else:
+                node.next = current_node.next
 
-        return
+        # index = self._hash_mod(key)
+
+        # if self.storage[index] is not None:
+        #     if self.storage[index][0] == key:
+        #         self.storage[index] = None
+        #     else:
+        #         print(f"WARNING: Collision has occured at {index}")
+
+        # else:
+        #     print(f"Warning: key {key} not found")
+
+        # return
 
 
     def retrieve(self, key):
