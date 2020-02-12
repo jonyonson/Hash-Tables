@@ -142,9 +142,13 @@ class HashTable:
         old_storage = self.storage
         self.capacity *= 2
         self.storage = [None] * self.capacity
-
+        current_node = None
         for item in old_storage:
-            self.insert(item[0], item[1])
+            current_node = item
+            while current_node is not None:
+                # self.insert(item[0], item[1])
+                self.insert(current_node.key, current_node.value)
+                current_node = current_node.next
 
 
 
