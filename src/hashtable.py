@@ -84,18 +84,17 @@ class HashTable:
             node = current_node
             current_node = node.next
 
-        if current_node == None:
-            print(f"Warning: key {key} not fgit ound")
-            # prev = self.storage[index]
-            # self.storage[index] = LinkedPair(key, value)
-            # self.storage[index].next = prev
-        else:
+        if self.storage[index] is not None:
             if node is None:
                 self.storage[index] = current_node.next
             else:
                 node.next = current_node.next
+        else:
+            print(f"Warning: key {key} not found")
 
-        # index = self._hash_mod(key)
+        return
+
+
 
         # if self.storage[index] is not None:
         #     if self.storage[index][0] == key:
