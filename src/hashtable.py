@@ -99,17 +99,19 @@ class HashTable:
         Fill this in.
         '''
         index = self._hash_mod(key)
+        current_node = self.storage[index]
 
-        if self.storage[index] is not None:
-            if self.storage[index][0] == key:
-                return self.storage[index][1]
-            else:
-                print(f"WARNING: Collision has occured at {index}")
-
+        if current_node is not None:
+            if current_node.key == key:
+                return current_node.value
+            while current_node is not None:
+                if current_node.key == key:
+                    return current_node.value
+                else:
+                    current_node = current_node.next
+            return None
         else:
             return None
-
-        return
 
 
     def resize(self):
